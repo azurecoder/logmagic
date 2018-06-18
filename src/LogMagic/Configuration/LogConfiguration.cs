@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using LogMagic.Levels;
 
 namespace LogMagic.Configuration
 {
-   class LogConfiguration : ILogConfiguration, IWriterConfiguration, IEnricherConfiguration, IFilterConfiguration
+   class LogConfiguration : ILogConfiguration, IWriterConfiguration, IEnricherConfiguration, IFilterConfiguration, 
+      ILevelConfiguration
    {
       private readonly List<ILogWriter> _writers = new List<ILogWriter>();
       private readonly List<IEnricher> _enrichers = new List<IEnricher>();
@@ -75,5 +77,17 @@ namespace LogMagic.Configuration
       }
 
       public IFilterConfiguration When => this;
+
+      public LogSeverity LogLevel
+      {
+         get
+         {
+            return LogLevelChecks.LogLevel;
+         }
+         set
+         {
+            LogLevelChecks.LogLevel = value;
+         }
+      }
    }
 }
